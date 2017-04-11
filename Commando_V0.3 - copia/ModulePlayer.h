@@ -18,6 +18,7 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	void OnCollision(Collider* c1, Collider* c2);
 
 public:
 
@@ -42,6 +43,7 @@ public:
 	enum LastDirection { UP, DOWN, LEFT, RIGHT };
 	LastDirection player_last_direction;
 	iPoint position;
+	bool stop = false;
 };
 
 #endif

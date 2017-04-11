@@ -5,9 +5,10 @@
 #include "ModuleParticles.h"
 #include "ModuleRender.h"
 #include "ModuleCollision.h"
+#include "ModuleFadeToBlack.h"
 #include "ModulePlayer.h"
 #include "ModuleAudio.h"
-#include "ModuleFirstScene.h"
+
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -98,8 +99,8 @@ bool ModulePlayer::Start()
 
 	graphics = App->textures->Load("rtype/Superjoe_Sprites_1.png");
 	
-
-	playercoll = App->collision->AddCollider({ position.x, position.y, 22, 23 }, COLLIDER_PLAYER);
+	playercoll = App->collision->AddCollider({ position.x, position.y, 22, 23 }, COLLIDER_PLAYER,this);
+	stop = false;
 	return true;
 }
 
@@ -109,6 +110,8 @@ bool ModulePlayer::CleanUp()
 	LOG("Unloading player");
 
 	App->textures->Unload(graphics);
+	if (playercoll != nullptr)
+		playercoll->to_delete = true;
 
 	return true;
 }
@@ -161,7 +164,7 @@ update_status ModulePlayer::Update()
 	//UP
 	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
 	{
-		if (position.y > -1864 + SCREEN_HEIGHT) {
+		if (position.y > -1864 + SCREEN_HEIGHT && stop==false) {
 			position.y -= speed;
 		}
 		if (current_animation != &up)
@@ -236,10 +239,11 @@ update_status ModulePlayer::Update()
 	return UPDATE_CONTINUE;
 }
 
-void OnCollision() {
+void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
-	if (App->player->playercoll->CheckCollision(App->scene_space->mur1->rect) == true) {
-		
-		//STOP PLAYER
+	if (c1 == playercoll)
+	{
+		position.y +=2;
 	}
+	
 }

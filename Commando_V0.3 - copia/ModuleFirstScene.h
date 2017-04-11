@@ -26,6 +26,7 @@ public:
 	Mix_Music* music = NULL;
 	Animation palm_trees;
 	Collider* mur1=nullptr;
+	Collider* murpro = nullptr;
 	bool fading = false;
 };
 

@@ -4,6 +4,7 @@
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 #include "ModuleCollision.h"
+#include "ModuleParticles.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleFirstScene.h"
@@ -33,10 +34,11 @@ bool ModuleFirstScene::Start()
 	palm_trees.speed = 0.1f;
 
 	App->player->Enable();
+	App->particles->Enable();
 	App->collision->Enable();
 	
 	mur1= App->collision->AddCollider({ 156,-1690+ SCREEN_HEIGHT, 43, 44 }, COLLIDER_WALL);
-
+	murpro= App->collision->AddCollider({ 156,-200, 43, 44 }, COLLIDER_WALL);
 	return true;
 }
 
@@ -48,6 +50,7 @@ bool ModuleFirstScene::CleanUp()
 	App->textures->Unload(background);
 	App->player->Disable();
 	App->collision->Disable();
+	App->particles->Disable();
 	return true;
 }
 

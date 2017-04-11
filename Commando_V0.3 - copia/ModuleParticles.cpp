@@ -15,31 +15,19 @@ ModuleParticles::ModuleParticles()
 {
 	for(uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		active[i] = nullptr;
-}
-
-ModuleParticles::~ModuleParticles()
-{}
-
-// Load assets
-bool ModuleParticles::Start()
-{
-	LOG("Loading particles");
-	graphics = App->textures->Load("rtype/particles.png");
-	music = App->music->LoadChunk("rtype/Commando_12_Player_Shot.wav");
-
 	// Explosion particle
-	explosion.anim.PushBack({274, 296, 33, 30});
-	explosion.anim.PushBack({313, 296, 33, 30});
-	explosion.anim.PushBack({346, 296, 33, 30});
-	explosion.anim.PushBack({382, 296, 33, 30});
-	explosion.anim.PushBack({419, 296, 33, 30});
-	explosion.anim.PushBack({457, 296, 33, 30});
+	explosion.anim.PushBack({ 274, 296, 33, 30 });
+	explosion.anim.PushBack({ 313, 296, 33, 30 });
+	explosion.anim.PushBack({ 346, 296, 33, 30 });
+	explosion.anim.PushBack({ 382, 296, 33, 30 });
+	explosion.anim.PushBack({ 419, 296, 33, 30 });
+	explosion.anim.PushBack({ 457, 296, 33, 30 });
 	explosion.anim.loop = false;
 	explosion.anim.speed = 0.3f;
 
 	// TODO 2: Create the template for a new particle "laser"
 	//Laser particle
-	bulletUP.anim.PushBack({240,107,2,2});
+	bulletUP.anim.PushBack({ 240,107,2,2 });
 	bulletUP.anim.loop = true;
 	bulletUP.anim.speed = 0.1f;
 	bulletUP.life = 3000;
@@ -63,6 +51,17 @@ bool ModuleParticles::Start()
 	bulletRIGHT.life = 3000;
 	bulletRIGHT.speed.x += 3;
 
+}
+
+ModuleParticles::~ModuleParticles()
+{}
+
+// Load assets
+bool ModuleParticles::Start()
+{
+	LOG("Loading particles");
+	graphics = App->textures->Load("rtype/particles.png");
+	music = App->music->LoadChunk("rtype/Commando_12_Player_Shot.wav");
 
 	return true;
 }
@@ -106,8 +105,9 @@ update_status ModuleParticles::Update()
 			if(p->fx_played == false)
 			{
 				p->fx_played = true;
-				Mix_PlayChannel(0, music, 0);
 				// Play particle fx here
+				Mix_PlayChannel(0, music, 0);
+				
 			}
 		}
 	}
@@ -181,6 +181,9 @@ bool Particle::Update()
 
 	position.x += speed.x;
 	position.y += speed.y;
+
+	if (collider != nullptr)
+		collider->SetPos(position.x, position.y);
 
 	return ret;
 }
