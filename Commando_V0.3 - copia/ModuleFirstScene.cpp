@@ -25,7 +25,7 @@ bool ModuleFirstScene::Start()
 	
 	background = App->textures->Load("rtype/Area1.png");
 	music = App->music->Load("rtype/Commando_02_Start_Demo.ogg");
-	Mix_PlayMusic(music, 0);
+	Mix_PlayMusic(music, 100);
 	palm_trees_texture = App->textures->Load("rtype/palm tree sprite.png");
 
 	palm_trees.PushBack({ 0, 0, 39, 32 });

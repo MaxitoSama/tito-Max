@@ -241,9 +241,22 @@ update_status ModulePlayer::Update()
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
-	if (c1 == playercoll)
+	if (c1 == playercoll &&App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
 	{
 		position.y +=2;
+		App->render->camera.y -= 6;
 	}
-	
+	if (c1 == playercoll &&App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
+	{
+		position.y -= 2;
+		App->render->camera.y += 6;
+	}
+	if (c1 == playercoll &&App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
+	{
+		position.x += 2;
+	}
+	if (c1 == playercoll &&App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
+	{
+		position.x -= 2;
+	}
 }
