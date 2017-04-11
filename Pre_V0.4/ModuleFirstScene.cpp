@@ -9,6 +9,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleFirstScene.h"
 #include "ModuleAudio.h"
+#include "ModuleEnemies.h"
 #include "ModuleSecondScene.h"
 
 
@@ -36,9 +37,13 @@ bool ModuleFirstScene::Start()
 	App->player->Enable();
 	App->particles->Enable();
 	App->collision->Enable();
+	App->enemies->Enable();
 	
 	mur1= App->collision->AddCollider({ 156,-1690+ SCREEN_HEIGHT, 43, 44 }, COLLIDER_WALL);
 	murpro= App->collision->AddCollider({ 156,-200, 43, 44 }, COLLIDER_WALL);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_1, 100, -200);
+
 	return true;
 }
 
@@ -46,11 +51,13 @@ bool ModuleFirstScene::Start()
 bool ModuleFirstScene::CleanUp()
 {
 	LOG("Unloading space scene");
-
 	App->textures->Unload(background);
-	App->player->Disable();
+
+	App->enemies->Disable();
 	App->collision->Disable();
 	App->particles->Disable();
+	App->player->Disable();
+	
 	return true;
 }
 

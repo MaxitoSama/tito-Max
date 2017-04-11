@@ -12,6 +12,8 @@
 #include "ModuleParticles.h"
 #include "ModuleAudio.h"
 #include "ModuleInit.h"
+#include "ModuleEnemies.h"
+
 
 Application::Application()
 {
@@ -23,6 +25,7 @@ Application::Application()
 	modules[i++] = scene_space = new ModuleFirstScene(); // Charge all the scenes before Player!!! if we don't do that the player will be under the background
 	modules[i++] = scene_map2 = new ModuleSecondScene();
 	modules[i++] = end_scene = new ModuleEndScene();
+	modules[i++] = enemies= new ModuleEnemies();
 	modules[i++] = player = new ModulePlayer();
 	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = fade = new ModuleFadeToBlack();
@@ -49,6 +52,7 @@ bool Application::Init()
 	end_scene->Disable();
 	//music->Disable();
 	collision->Disable();
+	enemies->Disable();
 	
 	// ---
 

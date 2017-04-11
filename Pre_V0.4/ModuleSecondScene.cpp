@@ -29,6 +29,7 @@ bool ModuleSecondScene::Start()
 	Mix_PlayMusic(music, -1);
 
 	App->player->Enable();
+	App->collision->Enable();
 
 	return true;
 }
