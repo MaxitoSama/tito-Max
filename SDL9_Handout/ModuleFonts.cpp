@@ -100,8 +100,21 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 	{
 		for (int j = 0; j < MAX_FONT_CHARS; j++)
 		{
-			
-			if (j != 0 && j%fonts[font_id].row_chars == 0)
+			if (text[i] == fonts[font_id].table[j])
+			{
+				int row = (j / fonts[font_id].row_chars) + 1;
+				int column = j / row;
+				if (row > 1)
+					column -= 1;
+				SDL_Rect section;
+				section.x = column * fonts[font_id].char_w;
+				section.y = (row - 1) * fonts[font_id].char_h;
+				section.h = fonts[font_id].char_h;
+				section.w = fonts[font_id].char_w;
+				App->render->Blit(fonts[font_id].graphic, x + (i * fonts[font_id].char_w), y, &section, 1.0f, false);
+				break;
+			}
+			/*if (j != 0 && j%fonts[font_id].row_chars == 0)
 			{
 				a++;
 			}
@@ -111,7 +124,7 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 				rect.y = a*rect.h;
 				App->render->Blit(fonts[font_id].graphic,x+(i*rect.w), y, &rect,1.0f,false);
 				break;
-			}
+			}*/
 		}
 	
 	}

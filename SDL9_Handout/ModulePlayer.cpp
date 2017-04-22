@@ -126,7 +126,7 @@ update_status ModulePlayer::Update()
 	sprintf_s(score_text, 10, "%7d", score);
 
 	// TODO 3: Blit the text of the score in at the bottom of the screen
-	App->fonts->BlitText(56, 249, font_score, score_text);
+	App->fonts->BlitText(56, 249, font_score, "penesito");
 
 
 	return UPDATE_CONTINUE;
