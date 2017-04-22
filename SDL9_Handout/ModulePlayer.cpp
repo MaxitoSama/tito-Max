@@ -52,6 +52,7 @@ bool ModulePlayer::Start()
 	font_score = App->fonts->Load("fonts/rtype_font.png", "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz", 1);
 
 	// TODO 4: Try loading "rtype_font3.png" that has two rows to test if all calculations are correct
+	font_score = App->fonts->Load("fonts/rtype_font3.png", "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz", 2);
 
 	return true;
 }
@@ -125,7 +126,7 @@ update_status ModulePlayer::Update()
 	sprintf_s(score_text, 10, "%7d", score);
 
 	// TODO 3: Blit the text of the score in at the bottom of the screen
-	App->fonts->BlitText(100, 100, font_score, score_text);
+	App->fonts->BlitText(56, 249, font_score, score_text);
 
 
 	return UPDATE_CONTINUE;

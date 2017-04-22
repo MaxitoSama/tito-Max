@@ -57,7 +57,7 @@ int ModuleFonts::Load(const char* texture_path, const char* characters, uint row
 	// char_w: width of each character
 	App->textures->GetSize(fonts[id].graphic, fonts[id].char_w, fonts[id].char_h);
 	fonts[id].char_w = fonts[id].char_w / fonts[id].row_chars;
-	fonts[id].char_w = fonts[id].char_h / fonts[id].rows;
+	fonts[id].char_h = fonts[id].char_h / fonts[id].rows;
 
 	
 	
@@ -98,8 +98,9 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 
 	for(uint i = 0; i < len; ++i)
 	{
-		for (int j = 0; j < fonts[font_id].len; j++)
+		for (int j = 0; j < MAX_FONT_CHARS; j++)
 		{
+			
 			if (j != 0 && j%fonts[font_id].row_chars == 0)
 			{
 				a++;
@@ -108,7 +109,8 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 			{
 				rect.x = j*rect.w;
 				rect.y = a*rect.h;
-				App->render->Blit(fonts[font_id].graphic,x+i*rect.w, y, &rect,1.0f,false);
+				App->render->Blit(fonts[font_id].graphic,x+(i*rect.w), y, &rect,1.0f,false);
+				break;
 			}
 		}
 	
