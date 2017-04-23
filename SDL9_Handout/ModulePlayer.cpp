@@ -123,7 +123,7 @@ update_status ModulePlayer::Update()
 		App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
 
 	// Draw UI (score) --------------------------------------
-	sprintf_s(score_text, 10, "%7d", score);
+	sprintf_s(score_text, 10, "%d", score);
 
 	// TODO 3: Blit the text of the score in at the bottom of the screen
 	App->fonts->BlitText(56, 249, font_score, "Poloncracio");
