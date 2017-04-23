@@ -94,37 +94,28 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 	rect.w = font->char_w;
 	rect.h = font->char_h;
 	int a = 0;
+	int b;
 	// TODO 2: Find the character in the table and its position in the texture, then Blit
 
 	for(uint i = 0; i < len; ++i)
 	{
+		b = 0;
+		a = 0;
 		for (int j = 0; j < MAX_FONT_CHARS; j++)
 		{
-			if (text[i] == fonts[font_id].table[j])
-			{
-				int row = (j / fonts[font_id].row_chars) + 1;
-				int column = j / row;
-				if (row > 1)
-					column -= 1;
-				SDL_Rect section;
-				section.x = column * fonts[font_id].char_w;
-				section.y = (row - 1) * fonts[font_id].char_h;
-				section.h = fonts[font_id].char_h;
-				section.w = fonts[font_id].char_w;
-				App->render->Blit(fonts[font_id].graphic, x + (i * fonts[font_id].char_w), y, &section, 1.0f, false);
-				break;
-			}
-			/*if (j != 0 && j%fonts[font_id].row_chars == 0)
+			if (j != 0 && j%fonts[font_id].row_chars == 0)
 			{
 				a++;
+				b = 0;
 			}
 			if (text[i] == fonts[font_id].table[j])
 			{
-				rect.x = j*rect.w;
+				rect.x = b*rect.w;
 				rect.y = a*rect.h;
 				App->render->Blit(fonts[font_id].graphic,x+(i*rect.w), y, &rect,1.0f,false);
 				break;
-			}*/
+			}
+			b++;
 		}
 	
 	}
